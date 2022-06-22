@@ -198,7 +198,7 @@ class LoginController {
                 $serverUrl .= "s";
             }
 
-            $serverUrl .= "://" . $this->subdomain . ".salesforce.com";
+            $serverUrl .= "://" . $this->subdomain . ".salesforce.mil";
 
             if (isset($_REQUEST['port'])) {
                 $serverUrl .= ":" . $_REQUEST['port'];
@@ -213,7 +213,9 @@ class LoginController {
         $domainAllowlist = array(
             'salesforce\.com',
             'vpod\.t\.force\.com',
-            'cloudforce\.com'
+            'cloudforce\.com',
+            'crmforce\.mil',
+            'salesforce\.mil'
         );
         foreach ($domainAllowlist as $w) {
             if (preg_match('/^https?\:\/\/[\w\.\-_]+\.' . $w . '/', $serverUrl)) {
@@ -269,7 +271,7 @@ class LoginController {
             }
         } else if ($sessionId && $serverUrl && !($username && $password)) {
             $serverUrlHost = parse_url($serverUrl, PHP_URL_HOST);
-            $loginHosts = array("login.salesforce.com", "test.salesforce.com", "prerellogin.pre.salesforce.com");
+            $loginHosts = array("login.salesforce.com", "test.salesforce.com", "prerellogin.pre.salesforce.com", "usaf.my.salesforce.mil");
             if (in_array($serverUrlHost, $loginHosts)) {
                 $this->addError('Must not connect to login server (www, login, test, or prerellogin) if providing a session id. ' .
                                'Choose your specific Salesforce instance on the QuickSelect menu when using a session id; ' .
